@@ -10,7 +10,7 @@ const keys = [
 ]
 let arr = [];
 async function getSuburbPrices() {
-    console.log('g')
+    console.log('Fetching new prices!')
     const uri = `https://reiwa.com.au/the-wa-market/perth-suburbs-price-data/`
     let data = `Suburb,Mean Price, Mean Increase\n`
     request.get(uri, async (err,res ,body) => {
@@ -47,17 +47,12 @@ async function getSuburbPrices() {
 
         fs.writeFileSync('datas.csv', d);
         console.log('Updated new file!')
+
+        setTimeout(() => {
+            getSuburbPrices()
+        }, 100000)
     })
 }
 
-//getSuburbPrices()
+getSuburbPrices()
 
-    setInterval(async () => {
-        console.log('Fetching')
-        getSuburbPrices()
-        
-    }, 200);
-
-setTimeout(() => {
-console.log(2)
-}, 200)
